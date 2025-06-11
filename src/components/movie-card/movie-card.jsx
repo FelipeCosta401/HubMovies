@@ -6,7 +6,7 @@ const MovieCard = ({ movie }) => {
   return (
     <div
       onClick={() => navigate(`/movie/${movie.id}`)}
-      className="min-w-1/7 relative group hover:cursor-pointer hover:scale-120 hover:z-1 transition-all"
+      className="min-w-[200px] relative group hover:cursor-pointer hover:scale-120 hover:z-1 transition-all"
     >
       <img
         className="rounded-md shadow-md group-hover:shadow-xl"

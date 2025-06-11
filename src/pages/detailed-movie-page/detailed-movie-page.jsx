@@ -2,51 +2,59 @@ import { useEffect, useState } from "react";
 
 import { useParams } from "react-router-dom";
 
-import MoviesService from "../../services/movies/MoviesServices";
+import useMovie from "../../hooks/useMovie";
 
 const DetailedMoviePage = () => {
   const { id } = useParams();
+  const { fetchDetailedMovie } = useMovie();
   const [movieData, setMovieData] = useState();
-  const [movieVideo, setMovieVideo] = useState();
 
   useEffect(() => {
     if (!id) return;
     fetchMovie(id);
-    fetchMovieVideos(id);
   }, [id]);
 
   async function fetchMovie(id) {
     try {
-      const { response } = await MoviesService.getMovieById(id);
-      setMovieData(response);
-    } catch (e) {
-      console.log(e);
-    }
-  }
-
-  async function fetchMovieVideos(id) {
-    try {
-      const { mainVideoKey } = await MoviesService.getMovieVideos(id);
-      console.log(mainVideoKey)
-      setMovieVideo(mainVideoKey);
+      const movieData = await fetchDetailedMovie(id);
+      console.log(movieData);
+      setMovieData(movieData);
     } catch (e) {
       console.log(e);
     }
   }
 
   return (
-    <main>
-      {movieVideo && (
-        <div>
-          <iframe
-            src={`https://www.youtube.com/embed/${movieVideo.key}?controls=0`}
-            title="Trailer"
-
-            className="w-full h-[600px] rounded-xl"
-          />
-        </div>
-      )}
-    </main>
+    <div className="flex gap-4">
+      <main className="sm:w-3/4">
+        {movieData ? (
+          <div className="w-full aspect-video">
+            {movieData && (
+              <iframe
+                className="w-full h-full rounded-4xl"
+                src={`https://www.youtube.com/embed/${movieData.mainVideoKey}?controls=0&modestbranding=1&rel=0&showinfo=0&fs=0`}
+                title="Trailer do filme"
+                allow="autoplay; encrypted-media"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowFullScreen={false}
+              />
+            )}
+          </div>
+        ) : (
+          <p className="text-gray-400 text-sm">Trailer indisponível</p>
+        )}
+      </main>
+      <aside className="w-1/4 h-[1000px] p-4 space-y-4 overflow-scroll">
+        {movieData &&
+          movieData.imageList.map((image) => (
+            <img
+              src={`https://image.tmdb.org/t/p/w500${image.file_path}`}
+              key={image.file_path}
+              className="rounded-xl"
+            />
+          ))}
+      </aside>
+    </div>
   );
 };
 

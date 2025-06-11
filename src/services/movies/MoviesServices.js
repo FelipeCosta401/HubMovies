@@ -15,10 +15,10 @@ class MoviesService {
 
   static async getMovieById(id) {
     return await AxiosInsntance.get(`/movie/${id}`)
-      .then((res) => {
-        const response = res.data;
+      .then(async (res) => {
+        const movieData = res.data;
 
-        return { response };
+        return { movieData };
       })
       .catch((err) => {
         throw new Error(err.response.data.message);
@@ -30,14 +30,30 @@ class MoviesService {
       .then((res) => {
         const videos = res.data.results;
 
-        const mainVideoKey = videos.find(
+        const mainVideo = videos.find(
           (video) =>
             video.type === "Trailer" &&
             video.site === "YouTube" &&
             video.official === true
         );
 
+        const mainVideoKey = mainVideo.key
+        
         return { videos, mainVideoKey };
+      })
+      .catch((err) => {
+        throw new Error(err.response.data.message);
+      });
+  }
+
+  static async getMovieImages(id) {
+    return await AxiosInsntance.get(`/movie/${id}/images`)
+      .then((res) => {
+        const allImages = res.data.posters;
+
+        const imageList = allImages.slice(0, 10)
+
+        return { imageList };
       })
       .catch((err) => {
         throw new Error(err.response.data.message);
