@@ -1,1 +1,30 @@
 @import "tailwindcss";
+
+/* Para navegadores WebKit (Chrome, Safari, Edge Chromium) */
+::-webkit-scrollbar {
+    width: 8px;               /* largura da scrollbar vertical */
+    height: 8px;              /* altura da scrollbar horizontal */
+    background: transparent;   /* esconde o fundo padrão */
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: transparent;   /* track transparente */
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.3); /* cor e opacidade do “polegar” */
+    border-radius: 2px;        /* cantos arredondados */
+    border: 2px solid transparent; /* evita “jumps” no hover */
+  }
+  
+  /* Hover no thumb (opcional) */
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+  
+  /* Para Firefox */
+  * {
+    scrollbar-width: thin;                 /* largura fina */
+    scrollbar-color: rgba(0,0,0,0.3) transparent; /* thumb + track */
+  }
+  

@@ -16,9 +16,6 @@ const HomePage = () => {
   async function fetchMoviesList() {
     try {
       const { response } = await MoviesService.getMoviesList();
-
-      console.log(response)
-
       setMovies(response);
     } catch (e) {
       console.log(e);

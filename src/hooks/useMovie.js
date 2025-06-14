@@ -1,6 +1,7 @@
 import MoviesService from "../services/movies/MoviesServices";
 
 const useMovie = () => {
+
   async function fetchDetailedMovie(id) {
     try {
       const { movieData } = await MoviesService.getMovieById(id);
