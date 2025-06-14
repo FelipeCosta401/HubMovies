@@ -22,7 +22,7 @@ Hub Movies é um catálogo de filmes online que permite aos usuários explorar f
 
 ## Pré-requisitos
 
-- Node.js (versão 14 ou superior)
+- Node.js (versão 22 ou superior)
 - npm ou yarn
 
 ## Instalação
@@ -30,7 +30,7 @@ Hub Movies é um catálogo de filmes online que permite aos usuários explorar f
 1. Clone o repositório:
 
 ```bash
-git clone [URL_DO_REPOSITÓRIO]
+git clone https://github.com/FelipeCosta401/hub-movies.git
 cd hub-movies
 ```
 
